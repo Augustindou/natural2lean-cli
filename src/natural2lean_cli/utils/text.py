@@ -1,4 +1,3 @@
-
 red = lambda s: "\u001b[31m" + s + "\u001b[0m"
 green = lambda s: "\u001b[32m" + s + "\u001b[0m"
 cyan = lambda s: "\u001b[36m" + s + "\u001b[0m"

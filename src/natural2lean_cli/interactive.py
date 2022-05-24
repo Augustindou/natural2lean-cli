@@ -80,7 +80,7 @@ def interactive():
             print(LEAN_ERROR_MESSAGE)
             # for testing purposes
             print(e)
-        
+
         except NoConclusion as e:
             print(NO_CONCLUSION_MESSAGE)
             # for testing purposes
@@ -98,16 +98,17 @@ def theorem_query(default="") -> str:
 
     # spacing
     print()
-    
+
     return input
+
 
 def statement_query(default="") -> str:
     input = inquirer.text(
         message="Input a statement.\n ",
         default=default,
     ).execute()
-    
+
     # spacing
     print()
-    
+
     return input
