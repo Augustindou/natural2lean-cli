@@ -16,8 +16,9 @@ def file(path: Path):
 
     for i, line in enumerate(lines):
         progressbar.update(i / n_lines)
-        # skip empty lines
-        if line.strip() == "":
+        
+        # skip empty lines and comments
+        if line.strip() == "" or line[0] == "%":
             continue
 
         try:
@@ -50,7 +51,7 @@ def file(path: Path):
         )
         print(state)
     else:
-        print(green("\n🚀 Congratulations, you solved all the goals !"))
+        print(green("\n🚀 Your proofs work !"))
 
 
 def print_error(message, e, state):

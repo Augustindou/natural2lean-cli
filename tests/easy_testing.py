@@ -22,6 +22,12 @@ EXAMPLES = {
         r"Following the same expansion, we have $q^2 = (3k+2)^2 = 3(3k^2+4k+1) +1$",
         r"Hence, we have $q^2 \mod 3 = 1$ again",
     ],
+    "contrapositive": [
+        r"Theorem square of q divisible by 3 means q is divisible by 3: If $q \in \mathbb{N}$ and $q^2$ is divisible by $3$, then $q$ is also divisible by $3$.",
+        r"We will prove the contrapositive",
+        r'By the "square mod 3" theorem, we have $q^2 \mod 3 = 1$',
+        r"Hence $q^2$ is not divisible by $3$.",
+    ],
 }
 
 if __name__ == "__main__":
