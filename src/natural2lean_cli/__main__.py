@@ -1,3 +1,4 @@
+from natural2lean import update_git
 from pathlib import Path
 import argparse
 from InquirerPy import inquirer
@@ -8,15 +9,20 @@ from .file import file
 is_interactive = lambda mode: mode in ["interactive", "i"]
 is_file = lambda mode: mode in ["file", "f"]
 is_cli = lambda mode: mode in ["full_cli", "cli"]
+is_update = lambda mode: mode == "update"
 
 
 def main():
     mode, input_file = parse_args()
-
+    
     # ambiguous because interactive mode and file given
-    if is_interactive(mode) and input_file != None:
-        print("Should not specify input file in interactive mode.")
+    if not is_file(mode) and input_file != None:
+        print(f"Should not specify input file in {mode} mode.")
         mode = "full_cli"
+
+    # update if asked
+    if is_update(mode):
+        update_git()
 
     # ask for file if not specified
     if is_file(mode) and input_file is None:
@@ -59,7 +65,7 @@ def parse_args() -> tuple[str, argparse.FileType]:
         type=str,
         nargs="?",
         default="full_cli",
-        help='Program mode. Can be either "interactive" or "file".',
+        help='Program mode. Can be either "interactive" or "file". You can also run "natural2lean update" to get the latest version of the project template.',
     )
     parser.add_argument(
         "input_file",

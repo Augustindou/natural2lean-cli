@@ -61,6 +61,7 @@ def interactive():
         try:
             last_state = translator.state()
             state = translator.new(input)
+            last_input = ""
 
             # goals solved
             if not state.goals:
@@ -73,16 +74,19 @@ def interactive():
 
         except TranslationError as e:
             print(TRANSLATION_ERROR_MESSAGE)
+            last_input = input
             # for testing purposes
             print(e)
 
         except LeanError as e:
             print(LEAN_ERROR_MESSAGE)
+            last_input = input
             # for testing purposes
             print(e)
 
         except NoConclusion as e:
             print(NO_CONCLUSION_MESSAGE)
+            last_input = input
             # for testing purposes
             print(e)
 
