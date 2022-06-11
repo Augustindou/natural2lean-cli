@@ -5,41 +5,48 @@ from InquirerPy import inquirer
 from InquirerPy.validator import PathValidator
 from .interactive import interactive
 from .file import file
+from .utils.text import red
 
-is_interactive = lambda mode: mode in ["interactive", "i"]
-is_file = lambda mode: mode in ["file", "f"]
-is_cli = lambda mode: mode in ["full_cli", "cli"]
-is_update = lambda mode: mode == "update"
-
+KEYWORDS = {
+    "interactive": ("interactive", "i"),
+    "file": ("file", "f"),
+    "cli": ("full_cli", "full", "cli"),
+    "update": ("update", "u"),
+}
 
 def main():
     mode, input_file = parse_args()
+
+    # invalid mode
+    if mode not in [v for kwds in KEYWORDS.values() for v in kwds]:
+        print(red("Invalid argument, mode can be 'interactive' or 'file'. Please use the following CLI to choose your mode. You can also run 'natural2lean update' to get the latest version of the project template."))
+        mode = "full_cli"
     
     # ambiguous because interactive mode and file given
-    if not is_file(mode) and input_file != None:
+    if mode not in KEYWORDS["file"] and input_file != None:
         print(f"Should not specify input file in {mode} mode.")
         mode = "full_cli"
 
     # update if asked
-    if is_update(mode):
+    if mode in KEYWORDS["update"]:
         update_git()
 
     # ask for file if not specified
-    if is_file(mode) and input_file is None:
+    if mode in KEYWORDS["file"] and input_file is None:
         input_file = file_query()
 
     # full cli
-    if is_cli(mode):
+    if mode in KEYWORDS["cli"]:
         mode = mode_query()
-        if is_file(mode):
+        if mode in KEYWORDS["file"]:
             input_file = file_query()
 
     # file mode
-    if is_file(mode):
+    if mode in KEYWORDS["file"]:
         file(input_file)
 
     # interactive mode
-    if is_interactive(mode):
+    if mode in KEYWORDS["interactive"]:
         interactive()
 
 
