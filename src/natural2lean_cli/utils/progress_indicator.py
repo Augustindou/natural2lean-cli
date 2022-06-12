@@ -5,26 +5,21 @@ LEFT = "▱"
 
 
 class ProgressIndicator:
-    def __init__(self, length: int):
+    def __init__(self, length: int, total: int):
         self.length = length
-        print("\n")
+        self.total = total
+        print()
         self.update(0)
 
-    def update(self, progress: float):
-        n = int(progress * self.length)
-        bar = COMPLETED * n + LEFT * (self.length - n) + f" {int(progress*100)}%"
+    def update(self, progress: int):
+        n = int(progress / self.total * self.length)
+        bar = (
+            COMPLETED * n
+            + LEFT * (self.length - n)
+            + f" {int(progress/self.total*100)}%"
+        )
 
         print(BACK + bar)
 
     def finish(self):
-        self.update(1)
-
-
-if __name__ == "__main__":
-    import time
-
-    prog = ProgressIndicator(30)
-    for i in range(100):
-        time.sleep(0.05)
-        prog.update(i / 100)
-    prog.finish()
+        self.update(self.total)

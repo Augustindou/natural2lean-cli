@@ -12,13 +12,14 @@ def file(path: Path):
         lines = f.readlines()
         n_lines = len(lines)
 
-    progressbar = ProgressIndicator(30)
+    progressbar = ProgressIndicator(30, n_lines)
 
     for i, line in enumerate(lines):
-        progressbar.update(i / n_lines)
+        line = line.strip()
+        progressbar.update(i)
         
         # skip empty lines and comments
-        if line.strip() == "" or line[0] == "%":
+        if line == "" or line[0] == "%":
             continue
 
         try:
