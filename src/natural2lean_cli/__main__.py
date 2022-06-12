@@ -5,7 +5,7 @@ from InquirerPy import inquirer
 from InquirerPy.validator import PathValidator
 from .interactive import interactive
 from .file import file
-from .utils.text import red
+from .utils.text import red, cyan
 
 KEYWORDS = {
     "interactive": ("interactive", "i"),
@@ -13,6 +13,8 @@ KEYWORDS = {
     "cli": ("full_cli", "full", "cli"),
     "update": ("update", "u"),
 }
+
+FIRST_USE_MESSAGE = cyan("This might take a minute if it's the first time you use the system, as we need to download the template project.\n")
 
 def main():
     mode, input_file = parse_args()
@@ -29,6 +31,7 @@ def main():
 
     # update if asked
     if mode in KEYWORDS["update"]:
+        print(FIRST_USE_MESSAGE)
         update_git()
 
     # ask for file if not specified
@@ -43,10 +46,12 @@ def main():
 
     # file mode
     if mode in KEYWORDS["file"]:
+        print(FIRST_USE_MESSAGE)
         file(input_file)
 
     # interactive mode
     if mode in KEYWORDS["interactive"]:
+        print(FIRST_USE_MESSAGE)
         interactive()
 
 
