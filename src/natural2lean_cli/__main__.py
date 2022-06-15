@@ -1,4 +1,4 @@
-from natural2lean import update_git
+from natural2lean import update_git, reset_git
 from pathlib import Path
 import argparse
 from InquirerPy import inquirer
@@ -12,6 +12,7 @@ KEYWORDS = {
     "file": ("file", "f"),
     "cli": ("full_cli", "full", "cli"),
     "update": ("update", "u"),
+    "reset": ("reset",),
 }
 
 FIRST_USE_MESSAGE = cyan("This might take a minute if it's the first time you use the system, as we need to download the template project.\n")
@@ -33,6 +34,12 @@ def main():
     if mode in KEYWORDS["update"]:
         print(FIRST_USE_MESSAGE)
         update_git()
+    
+    # reset if asked
+    if mode in KEYWORDS["reset"]:
+        print(FIRST_USE_MESSAGE)
+        reset_git() 
+        
 
     # ask for file if not specified
     if mode in KEYWORDS["file"] and input_file is None:
