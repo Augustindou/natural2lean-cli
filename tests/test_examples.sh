@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run this file from the root of the project
-# sh tests/test_examples.sh
+# `sh tests/test_examples.sh``
 
 echo "\n---------------------"
 echo "Testing main examples"
