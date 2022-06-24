@@ -27,7 +27,7 @@ def main():
     
     # ambiguous because interactive mode and file given
     if mode not in KEYWORDS["file"] and input_file != None:
-        print(f"Should not specify input file in {mode} mode.")
+        print(red(f"Should not specify input file in {mode} mode."))
         mode = "full_cli"
 
     # update if asked
