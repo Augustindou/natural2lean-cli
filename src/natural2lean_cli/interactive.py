@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from natural2lean import Translator, LeanError, TranslationError, NoConclusion
 from InquirerPy import inquirer
-from .utils.text import cyan, red, green, underline, string_differences
+from .utils.text import cyan, red, green, underline, string_differences, color_feedback
 
 
 BACKTRACK = ("BACKTRACK", "BACK")
@@ -69,6 +69,8 @@ def interactive():
             elif len(state.goals) < len(last_state.goals):
                 print(GOAL_SOLVED_MESSAGE)
 
+            # print sentence understanding
+            print(color_feedback(state.last_statement.interpretation_feedback()) + "\n")
             # print new state
             print(string_differences(str(last_state), str(state)))
 

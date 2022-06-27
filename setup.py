@@ -29,7 +29,7 @@ setuptools.setup(
     },
     python_requires=">=3.9",
     install_requires=[
-        "natural2lean",
+        "natural2lean>=0.0.3",
         "inquirerpy",
     ],
     extras_require={
