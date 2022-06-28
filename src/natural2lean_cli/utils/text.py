@@ -44,6 +44,8 @@ def color_feedback(
     result = ""
     
     for type, text in interpretation_feedback:
+        if text.strip() == "":
+            continue
         result += coloring[type](text.strip()) + " "
 
     return result
