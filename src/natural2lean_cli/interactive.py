@@ -100,6 +100,7 @@ def interactive():
 def theorem_query(default="") -> str:
     input = inquirer.text(
         message="Enter a theorem statement.\n ",
+        validate=lambda x: x.strip() != "",
         default=default,
     ).execute()
 
@@ -112,6 +113,7 @@ def theorem_query(default="") -> str:
 def statement_query(default="") -> str:
     input = inquirer.text(
         message="Input a statement.\n ",
+        validate=lambda x: x.strip() != "",
         default=default,
     ).execute()
 
