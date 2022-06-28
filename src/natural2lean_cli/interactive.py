@@ -63,14 +63,15 @@ def interactive():
             state = translator.new(input)
             last_input = ""
 
+            # print sentence understanding
+            print(color_feedback(state.last_statement.interpretation_feedback()) + "\n")
+            
             # goals solved
             if not state.goals:
                 print(ALL_GOALS_SOLVED_MESSAGE)
             elif len(state.goals) < len(last_state.goals):
                 print(GOAL_SOLVED_MESSAGE)
 
-            # print sentence understanding
-            print(color_feedback(state.last_statement.interpretation_feedback()) + "\n")
             # print new state
             print(string_differences(str(last_state), str(state)))
 
