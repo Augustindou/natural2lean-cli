@@ -15,16 +15,23 @@ KEYWORDS = {
     "reset": ("reset",),
 }
 
-FIRST_USE_MESSAGE = cyan("This might take a minute if it's the first time you use the system, as we need to download the template project.\n")
+FIRST_USE_MESSAGE = cyan(
+    "This might take a minute if it's the first time you use the system, as we need to download the template project.\n"
+)
+
 
 def main():
     mode, input_file = parse_args()
 
     # invalid mode
     if mode not in [v for kwds in KEYWORDS.values() for v in kwds]:
-        print(red("Invalid argument, mode can be 'interactive' or 'file'. Please use the following CLI to choose your mode. You can also run 'natural2lean update' to get the latest version of the project template."))
+        print(
+            red(
+                "Invalid argument, mode can be 'interactive' or 'file'. Please use the following CLI to choose your mode. You can also run 'natural2lean update' to get the latest version of the project template."
+            )
+        )
         mode = "full_cli"
-    
+
     # ambiguous because interactive mode and file given
     if mode not in KEYWORDS["file"] and input_file != None:
         print(red(f"Should not specify input file in {mode} mode."))
@@ -34,15 +41,21 @@ def main():
     if mode in KEYWORDS["update"]:
         print(FIRST_USE_MESSAGE)
         update_git()
-    
+
     # reset if asked
     if mode in KEYWORDS["reset"]:
         print(FIRST_USE_MESSAGE)
-        reset_git() 
-        
+        reset_git()
 
     # ask for file if not specified
     if mode in KEYWORDS["file"] and input_file is None:
+        input_file = file_query()
+
+    # invalid file
+    if mode in KEYWORDS["file"] and (
+        not input_file.is_file() or input_file.suffix != ".tex"
+    ):
+        print(red(f'Invalid file "{input_file}". Should be an existing .tex file.'))
         input_file = file_query()
 
     # full cli
@@ -77,7 +90,7 @@ def file_query() -> Path:
     ).execute()
 
 
-def parse_args() -> tuple[str, argparse.FileType]:
+def parse_args() -> tuple[str, Path]:
     parser = argparse.ArgumentParser(description="natural2lean")
     parser.add_argument(
         "mode",

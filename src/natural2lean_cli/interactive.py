@@ -64,7 +64,7 @@ def interactive():
             last_input = ""
 
             # print sentence understanding
-            print(color_feedback(state.last_statement.interpretation_feedback()) + "\n")
+            print(color_feedback(translator.interpretation_feedback()) + "\n")
             
             # goals solved
             if not state.goals:
@@ -82,12 +82,18 @@ def interactive():
             print(e)
 
         except LeanError as e:
+            # how the failed statement was translated
+            print(color_feedback(translator.failed_statement_interpretation()) + "\n")
+            # error message
             print(LEAN_ERROR_MESSAGE)
             last_input = input
             # for testing purposes
             print(e)
 
         except NoConclusion as e:
+            # how the failed statement was translated
+            print(color_feedback(translator.failed_statement_interpretation()) + "\n")
+            # error message
             print(NO_CONCLUSION_MESSAGE)
             last_input = input
             # for testing purposes

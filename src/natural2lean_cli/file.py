@@ -1,6 +1,6 @@
 from pathlib import Path
 from natural2lean import Translator, LeanError, TranslationError, NoConclusion
-from .utils.text import red, green, cyan
+from .utils.text import red, green, cyan, color_feedback
 from .utils.progress_indicator import ProgressIndicator
 
 
@@ -17,7 +17,7 @@ def file(path: Path):
     for i, line in enumerate(lines):
         line = line.strip()
         progressbar.update(i)
-        
+
         # skip empty lines and comments
         if line == "" or line[0] == "%":
             continue
@@ -28,19 +28,25 @@ def file(path: Path):
 
         except TranslationError as e:
             print_error(f"The system could not understand line {i+1}.", e, state)
-            raise e
+            return
 
         except LeanError as e:
+            # how the failed statement was translated
+            print("\n" + color_feedback(translator.failed_statement_interpretation()))
+            # error message
             print_error(f"Lean could not assert the validity of line {i+1}.", e, state)
-            raise e
+            return
 
         except NoConclusion as e:
+            # how the failed statement was translated
+            print("\n" + color_feedback(translator.failed_statement_interpretation()))
+            # error message
             print_error(
                 f"The system could not conclude a goal at line {i+1}, nor match a non-conclusive statement in your input.",
                 e,
                 state,
             )
-            raise e
+            return
 
     progressbar.finish()
 
@@ -58,5 +64,5 @@ def file(path: Path):
 def print_error(message, e, state):
     print(red(f"\n🧨 {message}"))
     print(f"Error: {e}\n")
-    print("Here's the state of the system before the error occured:\n")
+    print("Here's the state of the system before the error occurred:\n")
     print(state)
