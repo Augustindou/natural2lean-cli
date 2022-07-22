@@ -22,7 +22,7 @@ done
 echo "\n---------------------------------------"
 echo "Testing different methods for 1 theorem"
 echo "---------------------------------------"
-for filename in tests/examples/same-theorem-different-proofs/*.tex; do
+for filename in tests/examples/different-approaches/*.tex; do
     echo "\n--- Testing $filename"
     natural2lean f $filename
 done

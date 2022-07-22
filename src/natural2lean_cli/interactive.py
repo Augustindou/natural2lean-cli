@@ -24,9 +24,6 @@ NO_CONCLUSION_MESSAGE = red(
     "🧨 The system could not conclude a goal at this point, nor match a non-conclusive statement in your input.\n"
 )
 
-# TODO: welcome message should warn that 1st run might take a while with poor internet
-
-
 def interactive():
     translator = Translator()
     last_input = ""
