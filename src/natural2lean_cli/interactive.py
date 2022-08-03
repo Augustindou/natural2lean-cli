@@ -38,11 +38,12 @@ def interactive():
             input = theorem_query(default=last_input)
 
         # check for backtrack
-        if input.upper() in BACKTRACK:
+        if input.upper().strip() in BACKTRACK:
             if translator.backtrack():
                 print(BACKTRACK_MESSAGE)
             else:
                 print(NO_BACKTRACK_MESSAGE)
+            last_input = ""
             state = translator.state()
             if state.goals:
                 print(LAST_STATE_MESSAGE)
@@ -50,7 +51,7 @@ def interactive():
             continue
 
         # check for exit
-        elif input.upper() in EXIT:
+        elif input.upper().strip() in EXIT:
             print(EXIT_MESSAGE)
             break
 
@@ -76,7 +77,7 @@ def interactive():
             print(TRANSLATION_ERROR_MESSAGE)
             last_input = input
             # for testing purposes
-            print(e)
+            print(str(e) + "\n")
 
         except LeanError as e:
             # how the failed statement was translated
@@ -85,7 +86,7 @@ def interactive():
             print(LEAN_ERROR_MESSAGE)
             last_input = input
             # for testing purposes
-            print(e)
+            print(str(e) + "\n")
 
         except NoConclusion as e:
             # how the failed statement was translated
@@ -94,7 +95,7 @@ def interactive():
             print(NO_CONCLUSION_MESSAGE)
             last_input = input
             # for testing purposes
-            print(e)
+            print(str(e) + "\n")
 
 
 # ---------- QUERIES ----------
