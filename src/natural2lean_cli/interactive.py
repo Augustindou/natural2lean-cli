@@ -45,6 +45,7 @@ def interactive():
             else:
                 print(NO_BACKTRACK_MESSAGE)
             state = translator.state()
+            last_input = ""
             if state.goals:
                 print(LAST_STATE_MESSAGE)
                 print(state)
