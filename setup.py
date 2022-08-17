@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="natural2lean_cli",
-    version="0.0.1",
+    version="0.0.2",
     author="Augustin d'Oultremont",
     author_email="augustin.doultremont@outlook.com",
     description="Command line interface for natural2lean package",

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "natural2lean-cli"
-version = "0.0.1"
+version = "0.0.2"
 description = "Command line interface for natural2lean package"
 readme = "README.md"
 authors = [{ name = "Augustin d'Oultremont", email = "augustin.doultremont@outlook.com" }]
