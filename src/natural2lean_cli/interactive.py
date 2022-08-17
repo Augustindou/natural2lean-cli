@@ -24,6 +24,7 @@ NO_CONCLUSION_MESSAGE = red(
     "🧨 The system could not conclude a goal at this point, nor match a non-conclusive statement in your input.\n"
 )
 
+
 def interactive():
     translator = Translator()
     last_input = ""
@@ -62,15 +63,12 @@ def interactive():
 
             # print sentence understanding
             print(color_feedback(translator.interpretation_feedback()) + "\n")
-            
+
             # goals solved
             if not state.goals:
                 print(ALL_GOALS_SOLVED_MESSAGE)
             elif len(state.goals) < len(last_state.goals):
                 print(GOAL_SOLVED_MESSAGE)
-
-            # print new state
-            print(string_differences(str(last_state), str(state)))
 
         except TranslationError as e:
             print(TRANSLATION_ERROR_MESSAGE)
@@ -95,6 +93,9 @@ def interactive():
             last_input = input
             # for testing purposes
             print(e)
+
+        # print new state
+        print(string_differences(str(last_state), str(state)))
 
 
 # ---------- QUERIES ----------
